@@ -21,6 +21,10 @@ namespace GameMain
             InitPackage(procedureOwner).Forget();
         }
 
+        /// <summary>
+        /// 初始化资源包
+        /// </summary>
+        /// <param name="procedureOwner"></param>
         private async UniTaskVoid InitPackage(ProcedureOwner procedureOwner)
         {
             await UniTask.WaitForSeconds(0.1f);
@@ -49,6 +53,9 @@ namespace GameMain
             }
         }
 
+        /// <summary>
+        /// 初始化成功回调
+        /// </summary>
         private void OnInitSuccess(ProcedureOwner procedureOwner)
         {
             // 编辑器模式。

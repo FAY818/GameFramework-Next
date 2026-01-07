@@ -1,5 +1,8 @@
 ﻿namespace GameFramework.Resource
 {
+    /// <summary>
+    /// 资源系统日志处理
+    /// </summary>
     internal class ResourceLogger : YooAsset.ILogger
     {
         public void Log(string message)

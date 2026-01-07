@@ -8,6 +8,9 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 
 namespace GameMain
 {
+    /// <summary>
+    /// 流程 => 资源下载 
+    /// </summary>
     public class ProcedureDownloadFile:ProcedureBase
     {
         public override bool UseNativeDialog { get; }

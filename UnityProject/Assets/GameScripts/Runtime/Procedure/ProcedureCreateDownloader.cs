@@ -5,6 +5,9 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 
 namespace GameMain
 {
+    /// <summary>
+    /// 流程 => 创建下载器
+    /// </summary>
     public class ProcedureCreateDownloader : ProcedureBase
     {
         public override bool UseNativeDialog { get; }

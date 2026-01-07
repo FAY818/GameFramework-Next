@@ -275,6 +275,7 @@ namespace UnityGameFramework.Runtime
 #endif
             }
 
+            // 路径设置
             m_ResourceManager.SetReadOnlyPath(Application.streamingAssetsPath);
             if (m_ReadWritePathType == ReadWritePathType.TemporaryCache)
             {
@@ -290,6 +291,7 @@ namespace UnityGameFramework.Runtime
                 m_ResourceManager.SetReadWritePath(Application.persistentDataPath);
             }
 
+            // 默认参数设置
             m_ResourceManager.DefaultPackageName = PackageName;
             m_ResourceManager.PlayMode = PlayMode;
             m_ResourceManager.VerifyLevel = VerifyLevel;
@@ -305,7 +307,7 @@ namespace UnityGameFramework.Runtime
         }
 
         /// <summary>
-        /// 初始化操作。
+        /// 初始化资源包
         /// </summary>
         /// <returns></returns>
         public async UniTask<InitializationOperation> InitPackage(string packageName = "")

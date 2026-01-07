@@ -8,6 +8,8 @@ namespace GameMain
 {
     /// <summary>
     /// 流程 => 启动器。
+    /// 1.语言配置
+    /// 2.声音配置
     /// </summary>
     public class ProcedureLaunch : ProcedureBase
     {

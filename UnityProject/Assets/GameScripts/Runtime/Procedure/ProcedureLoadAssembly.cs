@@ -16,7 +16,10 @@ using YooAsset;
 namespace GameMain
 {
     /// <summary>
-    /// 流程加载器 - 代码初始化
+    /// 流程 => 程序集加载
+    /// 1.加载 LogicMain Assembly dll
+    /// 2.加载AOT Meta data Assembly dll
+    /// 3.反射调用GameApp.Entrance
     /// </summary>
     public class ProcedureLoadAssembly : ProcedureBase
     {
@@ -31,7 +34,7 @@ namespace GameMain
         private bool m_LoadAssemblyWait;
         private bool m_LoadMetadataAssemblyWait;
         private Assembly m_MainLogicAssembly;
-        private List<Assembly> m_HotfixAssemblys;
+        private List<Assembly> m_HotfixAssemblys; // 需要热更的dll
         private IFsm<IProcedureManager> m_ProcedureOwner;
 
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
@@ -41,7 +44,7 @@ namespace GameMain
             m_LoadAssemblyComplete = false;
             m_HotfixAssemblys = new List<Assembly>();
 
-            //AOT Assembly加载原始metadata
+            //AOT Assembly：AOT元数据dll：用于补充AOT程序集的元数据，Ahead-of-Time编译的程序集，如Unity引擎的核心代码
             if (SettingsUtils.HybridCLRCustomGlobalSettings.Enable)
             {
 #if !UNITY_EDITOR
@@ -58,6 +61,7 @@ namespace GameMain
 
             if (!SettingsUtils.HybridCLRCustomGlobalSettings.Enable || GameModule.Resource.PlayMode == EPlayMode.EditorSimulateMode)
             {
+                // 编辑器模拟模式
                 m_MainLogicAssembly = GetMainLogicAssembly();
             }
             else
@@ -69,6 +73,7 @@ namespace GameMain
                         var assetLocation = hotUpdateDllName;
                         if (!m_EnableAddressable)
                         {
+                            // 没有开启Addressable，则通过路径加载
                             assetLocation = Utility.Path.GetRegularPath(
                                 Path.Combine(
                                     "Assets",
@@ -141,9 +146,14 @@ namespace GameMain
             entryMethod.Invoke(appType, objects);
         }
 
+        /// <summary>
+        /// 模拟/编辑器模式下直接获取程序集
+        /// </summary>
+        /// <returns></returns>
         private Assembly GetMainLogicAssembly()
         {
             Assembly mainLogicAssembly = null;
+            // 遍历当前应用程序域中所有已加载程序集
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 if (string.Compare(SettingsUtils.HybridCLRCustomGlobalSettings.LogicMainDllName, $"{assembly.GetName().Name}.dll",

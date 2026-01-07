@@ -12,7 +12,7 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 namespace GameMain
 {
     /// <summary>
-    /// 预加载流程
+    /// 流程 => 资源预加载
     /// </summary>
     public class ProcedurePreload : ProcedureBase
     {

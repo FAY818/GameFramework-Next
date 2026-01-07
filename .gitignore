@@ -18,3 +18,8 @@ Configs/.cache.meta
 GenerateDatas/
 
 Modules/
+/UnityProject
+/UnityProject
+/UnityProject/ProjectSettings
+/UnityProject/Packages
+UnityProject/Packages/manifest.json
