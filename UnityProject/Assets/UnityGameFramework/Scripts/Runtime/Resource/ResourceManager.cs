@@ -54,6 +54,7 @@ namespace GameFramework.Resource
 
         /// <summary>
         /// Propagates notification that operations should be canceled.
+        /// Resource go 被销毁时触发的取消令牌
         /// </summary>
         public CancellationToken CancellationToken { get; private set; }
 
@@ -143,6 +144,7 @@ namespace GameFramework.Resource
                 DefaultPackage = defaultPackage;
             }
 
+            // 如果没有挂载 AsyncDestroyTrigger 组件会创建一个。
             CancellationToken = InstanceRoot.gameObject.GetCancellationTokenOnDestroy();
 
             IObjectPoolManager objectPoolManager = GameFrameworkSystem.GetModule<IObjectPoolManager>();
@@ -732,7 +734,7 @@ namespace GameFramework.Resource
             
             string assetObjectKey = GetCacheKey(location, packageName);
             
-            await TryWaitingLoading(assetObjectKey);
+            await TryWaitingLoading(assetObjectKey); // 等待是否有同资源加载中，如果有则等待
             
             float duration = Time.time;
             
@@ -750,6 +752,7 @@ namespace GameFramework.Resource
 
             if (!string.IsNullOrEmpty(assetInfo.Error))
             {
+                // 资源信息获取错误
                 _assetLoadingList.Remove(assetObjectKey);
                 
                 string errorMessage = Utility.Text.Format("Can not load asset '{0}' because :'{1}'.", location, assetInfo.Error);
@@ -910,6 +913,10 @@ namespace GameFramework.Resource
         
         private readonly TimeoutController _timeoutController = new TimeoutController();
         
+        /// <summary>
+        /// 检测资源是否正在加载中
+        /// </summary>
+        /// <param name="assetObjectKey"></param>
         private async UniTask TryWaitingLoading(string assetObjectKey)
         {
             if (_assetLoadingList.Contains(assetObjectKey))
@@ -920,7 +927,7 @@ namespace GameFramework.Resource
                         () => !_assetLoadingList.Contains(assetObjectKey), 
                         cancellationToken:CancellationToken)
 #if UNITY_EDITOR
-                        .AttachExternalCancellation(_timeoutController.Timeout(TimeSpan.FromSeconds(60)));
+                        .AttachExternalCancellation(_timeoutController.Timeout(TimeSpan.FromSeconds(60))); // 编辑器超时保护
                     _timeoutController.Reset();
 #else
                     ;

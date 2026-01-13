@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using GameFramework.Fsm;
 using GameFramework.Procedure;
+using UnityEngine;
 
 namespace GameMain
 {

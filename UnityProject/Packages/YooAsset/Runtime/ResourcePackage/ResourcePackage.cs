@@ -19,8 +19,9 @@ namespace YooAsset
         private DownloadManager _downloadMgr;
         private ResourceManager _resourceMgr;
         private ResourceLoader _resourceLoader;
+        
         private IBundleQuery _bundleQuery;
-        private IPlayMode _playModeImpl;
+        private IPlayMode _playModeImpl; // 运行模式实现（策略模式？）
 
         /// <summary>
         /// 包裹名

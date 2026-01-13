@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using GameLogic;
 using GameFramework;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 
 public partial class GameApp: Singleton<GameApp>
@@ -15,7 +16,7 @@ public partial class GameApp: Singleton<GameApp>
     public static void Entrance(object[] objects)
     {
         s_HotfixAssembly = (List<Assembly>)objects[0];
-        Log.Warning("======= 看到此条日志代表你成功运行了热更新代码 =======");
+        Log.Warning("======= 看到此条日志代表成功运行了热更新代码 =======");
         Log.Warning("======= Entrance GameApp =======");
         Instance.InitSystem();
         Instance.Start();
@@ -34,7 +35,12 @@ public partial class GameApp: Singleton<GameApp>
     /// </summary>
     private void StartGameLogic()
     {
-        
+        DebugMessage();
+    }
+    
+    private void DebugMessage()
+    { 
+        Log.Warning("======= Hello Cjj =======");
     }
 
     /// <summary>

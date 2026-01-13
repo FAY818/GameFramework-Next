@@ -68,6 +68,7 @@ namespace GameMain
             {
                 if (SettingsUtils.HybridCLRCustomGlobalSettings.Enable)
                 {
+                    // 开启HybridCLR，
                     foreach (string hotUpdateDllName in SettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
                     {
                         var assetLocation = hotUpdateDllName;
@@ -80,7 +81,6 @@ namespace GameMain
                                     SettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath,
                                     $"{hotUpdateDllName}{SettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}"));
                         }
-
                         Log.Debug($"LoadAsset: [ {assetLocation} ]");
                         m_LoadAssetCount++;
                         GameModule.Resource.LoadAsset<TextAsset>(assetLocation, LoadAssetSuccess);
@@ -90,6 +90,7 @@ namespace GameMain
                 }
                 else
                 {
+                        
                     m_MainLogicAssembly = GetMainLogicAssembly();
                 }
             }

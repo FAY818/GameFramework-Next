@@ -5,6 +5,9 @@ using YooAsset;
 
 namespace GameFramework.Resource
 {
+    /// <summary>
+    /// 资源管理器-密封资源对像
+    /// </summary>
     internal partial class ResourceManager
     {
         /// <summary>

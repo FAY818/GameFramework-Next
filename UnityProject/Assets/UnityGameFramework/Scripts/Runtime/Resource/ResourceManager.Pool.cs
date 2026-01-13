@@ -2,6 +2,9 @@
 
 namespace GameFramework.Resource
 {
+    /// <summary>
+    /// 资源管理器-对像池
+    /// </summary>
     internal partial class ResourceManager
     {
         private IObjectPool<AssetObject> m_AssetPool;
